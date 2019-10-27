@@ -26,7 +26,7 @@ public class TwitterController {
 	private TwitterEJB twitterService;
 	
 	
-	@ManagedProperty(value = "#{twitter}")
+	@ManagedProperty(value = "#{twitterObj}")
 	private TwitterObj twitter;
 
 	
