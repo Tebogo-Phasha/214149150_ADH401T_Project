@@ -1,0 +1,66 @@
+package controller;
+
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import model.Twitter;
+import service.TwitterEJB;
+
+@ManagedBean(name = "twitterController")
+@SessionScoped
+
+public class TwitterController {
+
+	@EJB
+	private TwitterEJB twitterService;
+	
+	
+	@ManagedProperty(value = "#{twitter}")
+	private Twitter twitter;
+
+	
+	
+	public void addTweet() {
+		twitterService.addTweet(twitter.getEntity());
+		
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		.setOAuthConsumerKey("*********************")
+		.setOAuthConsumerSecret("******************************************")
+		.setOAuthAccessToken("**************************************************")
+		.setOAuthAccessTokenSecret("******************************************");
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		
+	}
+	
+
+
+	public Twitter getTransaction() {
+		return twitter;
+	}
+
+
+	public void setTransaction(Twitter twitter) {
+		this.twitter = twitter;
+	}
+	
+	   
+    @GET
+    @Path("/twitter")
+    @Produces(MediaType.APPLICATION_XML)
+    public Twitter getAllTweets()
+    {
+    Twitter list = new Twitter();
+    list.getTweetMsg();
+
+    return list;
+    }
+}

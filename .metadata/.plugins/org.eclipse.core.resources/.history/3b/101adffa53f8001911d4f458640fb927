@@ -1,0 +1,55 @@
+package controller;
+import java.util.ArrayList;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import model.Twitter;
+import service.TwitterEJB;
+
+@ManagedBean(name = "twitterController")
+@SessionScoped
+
+public class TwitterController {
+
+	@EJB
+	private TwitterEJB twitterService;
+	
+	
+	@ManagedProperty(value = "#{twitter}")
+	private Twitter twitter;
+
+	
+	
+	public void addTransaction() {
+		twitterService.addTweet(twitter.getEntity());
+		
+	}
+	
+
+
+	public Twitter getTransaction() {
+		return twitter;
+	}
+
+
+	public void setTransaction(Twitter twitter) {
+		this.twitter = twitter;
+	}
+	
+	   
+    @GET
+    @Path("/twitter")
+    //@Produces(MediaType.APPLICATION_XML)
+    public Twitter getAllTweets()
+    {
+    Twitter list = new Twitter();
+    list.getTweetMsg();
+
+    return list;
+    }
+}

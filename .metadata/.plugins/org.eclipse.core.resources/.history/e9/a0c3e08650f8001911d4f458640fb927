@@ -1,0 +1,40 @@
+package controller;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+
+
+import model.Twitter;
+import service.TransactionEJB;
+
+@ManagedBean(name = "twitterController")
+@SessionScoped
+
+public class TwitterController {
+
+	@EJB
+	private TwitterEJB twitterService;
+	
+	
+	@ManagedProperty(value = "#{twitter}")
+	private Twitter twitter;
+
+	
+	
+	public void addTransaction() {
+		twitterService.addNew(twitter.getEntity());
+		System.out.println("In Use");
+	}
+	
+
+
+	public Twitter getTransaction() {
+		return twitter;
+	}
+
+
+	public void setTransaction(Twitter twitter) {
+		this.twitter = twitter;
+	}
+}
