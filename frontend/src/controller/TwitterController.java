@@ -44,7 +44,7 @@ public class TwitterController {
 		Twitter twit = (Twitter) tf.getInstance();
 		
 		try {
-			twit.updateStatus(twitter.getTweetMsg());
+			twit.updateStatus(twitterObj.getTweetMsg());
 		} catch (TwitterException e) {
 			
 			e.printStackTrace();
